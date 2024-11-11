@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursor-Responsive Animation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+      background-color: #282c34;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      background: radial-gradient(circle, #00f9ff, #004cff);
+      transition: transform 0.2s ease-out;
+      animation: fade 1s ease-out forwards;
+    }
+
+    @keyframes fade {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Function to create a circle element at the cursor position
+    function createCircle(event) {
+      const circle = document.createElement('div');
+      circle.classList.add('circle');
+      circle.style.left = `${event.clientX}px`;
+      circle.style.top = `${event.clientY}px`;
+
+      // Append the circle to the body
+      document.body.appendChild(circle);
+
+      // Remove the circle after animation
+      setTimeout(() => {
+        circle.remove();
+      }, 1000); // Animation duration is 1 second
+    }
+
+    // Listen for mousemove events on the document
+    document.addEventListener('mousemove', createCircle);
+  </script>
+</body>
+</html>
